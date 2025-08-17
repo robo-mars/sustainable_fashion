@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Fashion 4-Option Agent</title>
+  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="card">
+    <div class="logo-row">
+      <img src="https://img.icons8.com/color/96/000000/t-shirt--v2.png" alt="Fashion Logo" class="logo"/>
+      <h1>Fashion Agent</h1>
+    </div>
+    <p class="subtitle">Upload a clothing item image. The agent will detect the item and condition, then you can choose Sell, Donate, Recycle, or Style.</p>
+    <form id="uploadForm">
+      <label class="file-label">
+        <input type="file" id="file" accept="image/*" required/>
+        <span>Choose Image</span>
+      </label>
+      <div id="fileInfo" class="panel hidden" style="margin-bottom:8px;"></div>
+      <div class="row">
+        <input type="text" id="item_name" placeholder="Edit item name (optional)"/>
+        <input type="text" id="condition" placeholder="Edit condition (optional)"/>
+      </div>
+      <button id="analyzeBtn" type="submit">Analyze</button>
+    </form>
+
+    <div id="analysis" class="panel hidden"></div>
+
+    <div id="actions" class="panel hidden">
+      <button class="actionBtn sell" data-action="sell">Sell</button>
+      <button class="actionBtn donate" data-action="donate">Donate</button>
+      <button class="actionBtn recycle" data-action="recycle">Recycle</button>
+      <button class="actionBtn style" data-action="style">Style</button>
+    </div>
+
+    <pre id="output" class="panel hidden"></pre>
+  </div>
+
+<script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+/* Output card enhancements */
+.output-card {
+	background: #fff;
+	border-radius: 14px;
+	box-shadow: 0 4px 18px rgba(11,23,36,.10);
+	padding: 20px 18px 16px 18px;
+	margin: 18px 0 0 0;
+	border: 1.5px solid #e8eefb;
+	max-width: 420px;
+	font-size: 1.08rem;
+}
+.output-action {
+	display: flex;
+	align-items: center;
+	font-size: 1.18em;
+	font-weight: 600;
+	margin-bottom: 10px;
+}
+.output-icon {
+	font-size: 1.6em;
+	margin-right: 10px;
+}
+.output-action-label {
+	text-transform: capitalize;
+	letter-spacing: 0.5px;
+}
+.output-response {
+	margin-top: 6px;
+}
+.output-list {
+	margin: 8px 0 0 18px;
+	padding: 0;
+	list-style: disc inside;
+}
+.output-list li {
+	margin-bottom: 4px;
+}
+.output-message {
+	margin: 8px 0 0 0;
+	padding: 8px 12px;
+	background: #f3f6fb;
+	border-radius: 8px;
+	border: 1px solid #e8eefb;
+	font-size: 1.04em;
+}
+/* Modernized theme */
+:root{
+	--bg:#f6f8fb;
+	--card:#ffffff;
+	--accent:#0b5fff;
+	--sell:#0b5fff;
+	--donate:#1db954;
+	--recycle:#ffb300;
+	--style:#e84393;
+}
+
+*{box-sizing:border-box}
+body{
+	font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+	background:var(--bg);
+	margin:0;
+	padding:28px;
+	color:#0b1724;
+}
+.card{
+	max-width:480px;
+	margin:32px auto 0 auto;
+	background:var(--card);
+	padding:32px 28px 28px 28px;
+	border-radius:18px;
+	box-shadow:0 8px 30px rgba(11,23,36,.10);
+	position:relative;
+}
+.logo-row{
+	display:flex;
+	align-items:center;
+	gap:16px;
+	margin-bottom:8px;
+}
+.logo{
+	width:48px;
+	height:48px;
+	border-radius:12px;
+	background:#f3f6fb;
+	box-shadow:0 2px 8px rgba(11,23,36,.08);
+}
+h1{
+	margin:0 0 2px 0;
+	font-size:1.6rem;
+	font-weight:600;
+	letter-spacing:-1px;
+}
+.subtitle{
+	color:#566270;
+	margin-bottom:18px;
+}
+.file-label{
+	display:inline-block;
+	background:var(--accent);
+	color:#fff;
+	padding:10px 18px;
+	border-radius:8px;
+	cursor:pointer;
+	font-weight:500;
+	margin-bottom:12px;
+	transition:background .2s;
+}
+.file-label:hover{background:#1749b1}
+.file-label input[type=file]{display:none}
+.row{display:flex;gap:8px;margin:8px 0}
+input[type=text]{flex:1;padding:10px;border:1px solid #e6ecf3;border-radius:8px;font-size:1rem;transition:border .2s}
+input[type=text]:focus{border:1.5px solid var(--accent);outline:none}
+button{background:var(--accent);color:white;padding:10px 18px;border-radius:10px;border:none;cursor:pointer;font-size:1rem;font-weight:500;transition:background .2s,box-shadow .2s}
+button:hover{background:#1749b1;box-shadow:0 2px 8px rgba(11,23,36,.08)}
+.panel{margin-top:16px;padding:14px 16px;border-radius:10px;background:#f3f6fb;border:1px solid #e8eefb;font-size:1rem}
+.hidden{display:none}
+.actionBtn{margin-right:8px;padding:10px 16px;font-size:1rem;font-weight:500;border-radius:8px;border:none;transition:background .2s,box-shadow .2s}
+.actionBtn.sell{background:var(--sell)}
+.actionBtn.donate{background:var(--donate)}
+.actionBtn.recycle{background:var(--recycle)}
+.actionBtn.style{background:var(--style)}
+.actionBtn:hover{opacity:.95;box-shadow:0 2px 8px rgba(11,23,36,.08)}
+pre{white-space:pre-wrap;overflow:auto;background:#f8fafc;padding:12px 10px;border-radius:8px;border:1px solid #e8eefb}
