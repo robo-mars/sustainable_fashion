@@ -27,27 +27,23 @@ async def analyze_image(file: UploadFile = File(...)):
         return {"error": str(e)}
 
 @app.post("/api/action")
-async def action(action: str = Form(...), file: UploadFile = File(None), item_name: str = Form(None), condition: str = Form(None), location: str = Form(None)):
+async def action(
+    action: str = Form(None),
+    prompt: str = Form(None),
+    file: UploadFile = File(None),
+    item_name: str = Form(None),
+    condition: str = Form(None),
+    location: str = Form(None),
+    color: str = Form(None),
+    color_name: str = Form(None)
+):
     img_bytes = await file.read() if file else None
-    # Accept color and color_name from the form if present
-    from fastapi import Request
-    import sys
-    color = None
-    color_name = None
-    # Try to get color and color_name from the form (if sent)
-    try:
-        from fastapi import Request
-        import starlette.datastructures
-        # This is a hack, ideally should be explicit Form fields
-        request = sys._getframe(1).f_locals.get('request', None)
-        if request and isinstance(request.form, starlette.datastructures.FormData):
-            color = request.form.get('color')
-            color_name = request.form.get('color_name')
-    except Exception:
-        pass
-    # But also try to get from explicit Form fields if added
     # Compose inputs
-    inputs = {"item_name": item_name, "condition": condition}
+    inputs = {}
+    if item_name:
+        inputs["item_name"] = item_name
+    if condition:
+        inputs["condition"] = condition
     if color:
         inputs["color"] = color
     if color_name:
@@ -57,17 +53,29 @@ async def action(action: str = Form(...), file: UploadFile = File(None), item_na
             inputs["location"] = json.loads(location)
         except Exception:
             inputs["location"] = {"raw": location}
+    if prompt:
+        inputs["prompt"] = prompt
+
+    # If a custom prompt is provided and no action, use style skill as default
     skill_map = {
         "style": config.STYLE_SKILL_ID,
         "recycle": config.RECYCLE_SKILL_ID,
         "sell": config.SELL_SKILL_ID,
         "donate": config.DONATE_SKILL_ID
     }
-    skill_id = skill_map.get(action)
-    if not skill_id:
-        return JSONResponse({"error":"unknown action"}, status_code=400)
-    resp = call_orchestrate_skill(skill_id, inputs, image_bytes=img_bytes)
-    return JSONResponse({"action": action, "result": resp})
+    if action:
+        skill_id = skill_map.get(action)
+        if not skill_id:
+            return JSONResponse({"error":"unknown action"}, status_code=400)
+        resp = call_orchestrate_skill(skill_id, inputs, image_bytes=img_bytes)
+        return JSONResponse({"action": action, "result": resp})
+    elif prompt:
+        # If only prompt, use style skill as default
+        skill_id = config.STYLE_SKILL_ID
+        resp = call_orchestrate_skill(skill_id, inputs, image_bytes=img_bytes)
+        return JSONResponse({"action": "custom_prompt", "result": resp})
+    else:
+        return JSONResponse({"error": "No action or prompt provided."}, status_code=400)
 
 @app.get("/api/health")
 def health():
